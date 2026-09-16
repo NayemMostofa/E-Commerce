@@ -3,12 +3,12 @@ import Container from '../Common/Container'
 import BreadCrumb from '../Common/BreadCrumb.jsx'
 import Paginate from '../Component/Paginate.jsx'
 import CardSkeleton from '../Component/CardSkeleton.jsx'
-//import { useDispatch} from "react-redux";
-//import { productReducer } from '../Redux/DataStore.js'
+import { useDispatch } from 'react-redux'
+import { categoryReducer, productReducer } from '../Redux/productSlice.js'
 
 
 
-//let dispatch = useDispatch ()
+
 
 const Shop = () => {
   const [products, setProducts] = useState([])
@@ -16,23 +16,33 @@ const Shop = () => {
   const [loading, setLoading] = useState(true)
   const [category,setCategory] = useState ([])
  
+let dispatch = useDispatch ()
 
   useEffect(() => {
     fetch('https://dummyjson.com/products?limit=100')
-      .then(res => res.json())
-      //.then ((data)=>dispatch (productReducer (data.products)))
-      .then(data => {
-        setProducts(data.products)
-        setLoading(false)  
+      .then((res) => res.json())
+      .then((data) => {
+        const productList = data.products || []
+        setProducts(productList)
+        dispatch(productReducer(productList))
+        setLoading(false)
       })
       .catch(() => setLoading(false))
-  }, [])
+  }, [dispatch])
 
   useEffect ( ()=>{
     const uniCategory = [... new Set (products.map ( (item)=>item.category))]
     setCategory (uniCategory)
   
   },[products])
+
+  const handleCategory = (item)=>{
+    const filterproducts = products.filter ((categoryItem)=>categoryItem.category == item)
+    dispatch (categoryReducer(filterproducts));
+    dispatch(allProductsReducer(filteredProducts));
+  
+
+  }
 
   return (
     <div>
@@ -58,7 +68,7 @@ const Shop = () => {
             <ul className="text-black space-y-4 mt-6 pb-6">
               {
                  category.map( (item) =>{
-                  return <li className='capitalize'>{item}</li>
+                  return <li onClick={()=>handleCategory (item)} className='cursor-pointer capitalize'>{item}</li>
                  })
                  
               }
@@ -77,7 +87,7 @@ const Shop = () => {
                  
                 </div>
               ) : (
-                <Paginate itemsPerPage={show} products={products} />
+                <Paginate itemsPerPage={show}  />
               )
             }
           </div>

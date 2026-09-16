@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { DataStore } from "./DataStore";
+import productSlice from "./productSlice";
+
 
 export default configureStore({
   reducer: {
-    DataStore : DataStore.reducer,
+    AllProducts: productSlice,
   },
 });

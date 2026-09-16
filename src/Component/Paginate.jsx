@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Card from '../Common/Card';
+import { useSelector } from 'react-redux';
 
 const PaginateComponent = ReactPaginate.default || ReactPaginate;
 
-const Paginate = ({ itemsPerPage,products }) => {
+const Paginate = ({ itemsPerPage }) => {
+  const items = useSelector((state) => state.AllProducts?.products ?? []);
 
-    const items = products;
-
-function Items({ currentItems }) {
+  function Items({ currentItems }) {
   return (
     <>
       {currentItems &&
@@ -37,9 +37,8 @@ function Items({ currentItems }) {
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const pageCount = items.length ? Math.ceil(items.length / itemsPerPage) : 0;
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
