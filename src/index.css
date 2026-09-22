@@ -20,4 +20,7 @@
 .slick-slide {
   @apply flex! justify-center
 }
+.slick-slide > div {
+  @apply w-full;
+}
 

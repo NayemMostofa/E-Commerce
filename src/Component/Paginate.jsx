@@ -15,6 +15,8 @@ const Paginate = ({ itemsPerPage }) => {
         currentItems.map((item) => (
           <Card
            key={item.id}
+           id={item.id}
+           productsDetail={item}
            image={item.thumbnail}
            dispercent="40"
            title={item.title}
