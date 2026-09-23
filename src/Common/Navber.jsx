@@ -5,10 +5,13 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { useState } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Navber = () => {
   const [show, setShow] = useState(false);
+  const data = useSelector((state)=>state.AllProducts.cart )
+  let navigate = useNavigate()
 
   return (
     <div className="py-4 border-b">
@@ -39,7 +42,10 @@ const Navber = () => {
               </div>
               <div className="flex items-center gap-4">
                 <CiHeart className="text-2xl cursor-pointer hover:text-red-500" />
-                <MdOutlineAddShoppingCart className="text-2xl cursor-pointer hover:text-red-500" />
+                <div onClick={()=> navigate ("/cartPages")} className='relative'>
+                   <MdOutlineAddShoppingCart  className="text-2xl cursor-pointer hover:text-red-500" />
+                   <span className="cursor-pointer h-5 w-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs bg-primary text-white p-1">{data.length}</span>
+                </div>
               </div>
             </div>
           </div>

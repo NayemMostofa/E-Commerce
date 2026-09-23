@@ -5,7 +5,7 @@ const productSlice = createSlice({
   initialState: {
     products: [],
     card: [],  
-    cart: [],
+    cart: localStorage.getItem ("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
   },
   reducers: {
     productReducer: (state, action) => {
@@ -21,12 +21,20 @@ const productSlice = createSlice({
         state.card = [product, ...state.card]
       }
     },
-    cartReducer :(state,action)=> {
-      state.cart = [...state.cart,action.payload]
+    cartReducer: (state, action) => {
+    const ifExists = state.cart.find((item) => item.id === action.payload.id);
+    if (!ifExists) {
+    state.cart = [...state.cart, action.payload];
+    localStorage.setItem("cart", JSON.stringify ([...state.cart]))
     }
+   },
+   removeReducer:(state,action) =>{
+    state.cart = state.cart.filter((item)=>item.id !== action.payload)
+   }
+
   },
 })
 
-export const { productReducer, categoryReducer, cardReducer,cartReducer } = productSlice.actions
+export const { productReducer, categoryReducer, cardReducer,cartReducer,removeReducer } = productSlice.actions
 
 export default productSlice.reducer

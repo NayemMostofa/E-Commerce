@@ -4,6 +4,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import star from '../assets/Five star.png'
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux'
+import { cartReducer } from '../Redux/productSlice'
 
 const Card = ({dispercent,
   image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail}) => {
@@ -19,7 +20,7 @@ const Card = ({dispercent,
 
     const handleCart = () => {
   dispatch(cartReducer(productsDetail)); 
-  navigate("/cartPages");
+ 
 };
 
   return (

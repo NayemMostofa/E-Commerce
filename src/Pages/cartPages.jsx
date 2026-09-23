@@ -22,6 +22,7 @@ const CartPages = () => {
         {cardItems.map((item) => {
   return (
     <CardItem
+      id={item.id}
       key={item.id}      
       imgSrc={item.thumbnail}
       price={item.price}
