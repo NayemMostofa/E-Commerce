@@ -3,8 +3,9 @@ import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import star from '../assets/Five star.png'
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { cartReducer } from '../Redux/productSlice'
+ import {  toast,Bounce } from 'react-toastify';
 
 const Card = ({dispercent,
   image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail}) => {
@@ -17,11 +18,45 @@ const Card = ({dispercent,
 
     const dispatch = useDispatch ()
   
+  const cardData = useSelector((state) => state.AllProducts.cart);
 
-    const handleCart = () => {
-  dispatch(cartReducer(productsDetail)); 
- 
+const handleCart = (id) => {
+  let matchItem = cardData.filter((item) => item.id === id);
+
+  if (matchItem.length === 0) {
+    dispatch(cartReducer(productsDetail));
+    notify(true); 
+  } else {
+    notify(false); 
+  }
 };
+
+const notify = (isNew) => {
+  isNew
+    ? toast("Successfully Added To Cart!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      })
+    : toast.warn("🦄 Already Added!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+};
+
 
   return (
     <div className=" w-67.5  group h-87.5 ">
@@ -37,7 +72,7 @@ const Card = ({dispercent,
               <IoEyeOutline className='text-xl' />
             </div>
           </div>
-         <button onClick={handleCart}
+         <button onClick={()=> handleCart (id)}
           className={` ${AddToCardCss} w-full py-2 cursor-pointer bg-black rounded-bl-sm rounded-br-sm rounded-tr-xs rounded-tl-xs  absolute left-0 bottom-0 translate-y-full   duration-500 ease-in group-hover:translate-y-0  text-center text-white `}>Add To Cart</button>
         </div>                        
       </div> 

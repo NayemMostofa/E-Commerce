@@ -87,15 +87,15 @@ const Shop = () => {
 
             <h3 className=" mt-10 mb-5 text-lg font-semibold">Shop by Color</h3>
             <ul className=" space-y-2 ">
-              <li>
+              <li className='flex items-center gap-2'>
                 <span className=" w-3 h-3 rounded-full bg-black inline-block "></span>
-                Color 1
+               Color 1
               </li>
-              <li>
+              <li className='flex items-center gap-2'>
                 <span className=" w-3 h-3 rounded-full bg-[#ff1717] inline-block"></span>
                 Color 2
               </li>
-              <li>
+              <li className='flex items-center gap-2'>
                 <span className=" w-3 h-3 rounded-full bg-[#11ff0d] inline-block"></span>
                 Color 3
               </li>
