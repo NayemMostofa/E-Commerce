@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from "react-redux";
 import Container from '../Common/Container'
 import BreadCrumb from '../Common/BreadCrumb'
@@ -19,17 +18,18 @@ const CartPages = () => {
           <h3 className="w-[25%]">Subtotal</h3>
         </div>
 
-        {cardItems.map((item) => {
-  return (
-    <CardItem
-      id={item.id}
-      key={item.id}      
-      imgSrc={item.thumbnail}
-      price={item.price}
-      brand={item.brand}
-    />
-  )
-})}
+        {cardItems
+          .filter((item) => item && item.id != null)
+          .map((item) => (
+            <CardItem
+              id={item.id}
+              key={item.id}
+              imgSrc={item.thumbnail}
+              price={item.price}
+              brand={item.brand}
+              quan={item.quan}
+            />
+          ))}
 
       </Container>
     </div>

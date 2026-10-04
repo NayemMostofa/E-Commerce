@@ -1,10 +1,9 @@
-import React from 'react'
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import star from '../assets/Five star.png'
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
-import { cartReducer } from '../Redux/productSlice'
+import { cartReducer, wishReducer } from '../Redux/productSlice'
  import {  toast,Bounce } from 'react-toastify';
 
 const Card = ({dispercent,
@@ -24,7 +23,7 @@ const handleCart = (id) => {
   let matchItem = cardData.filter((item) => item.id === id);
 
   if (matchItem.length === 0) {
-    dispatch(cartReducer(productsDetail));
+    dispatch(cartReducer({...productsDetail , quan : 1} ));
     notify(true); 
   } else {
     notify(false); 
@@ -66,7 +65,7 @@ const notify = (isNew) => {
           <span className='py-1 px-3 bg-primary text-white rounded-sm text-xs absolute top-3 left-3'>-{dispercent}%</span>
           <div className='absolute top-3 right-3 space-y-4'>
             <div className='w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center'>
-              <CiHeart className='text-xl' />
+              <CiHeart onClick={()=> dispatch(wishReducer(productsDetail))} className='text-xl cursor-pointer' />
             </div>
             <div className='w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center'>
               <IoEyeOutline className='text-xl' />

@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 
 const Navber = () => {
   const [show, setShow] = useState(false);
-  const data = useSelector((state)=>state.AllProducts.cart )
+  const cart = useSelector((state)=>state.AllProducts.cart )
+  const wish = useSelector((state)=>state.AllProducts.wish )
   let navigate = useNavigate()
 
   return (
@@ -41,10 +42,13 @@ const Navber = () => {
                 <IoIosSearch className="text-xl absolute top-2.5 right-3 text-gray-500" />
               </div>
               <div className="flex items-center gap-4">
-                <CiHeart className="text-2xl cursor-pointer hover:text-red-500" />
+                <div onClick={()=> navigate ("/Wishlist")} className='relative'>
+                  <CiHeart className="text-2xl cursor-pointer hover:text-red-500" />
+                  <span className="cursor-pointer h-5 w-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs bg-primary text-white p-1">{wish.length}</span>
+                </div>
                 <div onClick={()=> navigate ("/cartPages")} className='relative'>
                    <MdOutlineAddShoppingCart  className="text-2xl cursor-pointer hover:text-red-500" />
-                   <span className="cursor-pointer h-5 w-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs bg-primary text-white p-1">{data.length}</span>
+                   <span className="cursor-pointer h-5 w-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs bg-primary text-white p-1">{cart.length}</span>
                 </div>
               </div>
             </div>
