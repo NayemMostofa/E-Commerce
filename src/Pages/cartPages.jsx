@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Container from '../Common/Container'
 import BreadCrumb from '../Common/BreadCrumb'
 import CardItem from '../Common/CardItem'
+import Btn from "../Common/Btn";
 
 const CartPages = () => { 
 
@@ -30,6 +31,42 @@ const CartPages = () => {
               quan={item.quan}
             />
           ))}
+
+          <div className="flex justify-between items-center mt-6">
+            <Btn >Return To Shop</Btn>
+            <Btn>Update Cart</Btn>
+          </div>
+
+          <div className="flex justify-between mt-20">
+            <div className="flex gap-7">
+              <div>
+                <input type="text" placeholder="Coupon Code" className="py-4 pl-6 px-16 border-1"/>
+              </div>
+              <div>
+                <Btn>Apply Coupon</Btn>
+              </div>
+            </div>
+            <div className="w-117.5 border py-8 px-7 rounded-sm">
+              <h3>Cart Total</h3>
+              <div className="flex justify-between items-center border-b py-4">
+                <h3>Subtotal</h3>
+                <h3>$</h3>
+              </div>
+              <div className="flex justify-between items-center border-b py-4">
+                <h3>Shipping</h3>
+                <h3>$</h3>
+              </div>
+              <div className="flex justify-between items-center  py-4">
+                <h3>Total:</h3>
+                <h3>$</h3>
+              </div>
+              <Btn className="mx-auto block">
+                Procees to checkout
+              </Btn>
+
+
+            </div>
+          </div>
 
       </Container>
     </div>

@@ -8,6 +8,7 @@ const productSlice = createSlice({
     card: [],  
     cart: localStorage.getItem ("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
     wish: localStorage.getItem ("wish") ? JSON.parse(localStorage.getItem("wish")) : [],
+    subTotal:0,
   },
   reducers: {
     productReducer: (state, action) => {
@@ -37,6 +38,10 @@ const productSlice = createSlice({
     localStorage.setItem("wish", JSON.stringify ([...state.wish]))
     }
     },
+    wishRemoveReducer: (state, action) => {
+      state.wish = state.wish.filter((item) => item?.id !== action.payload)
+      localStorage.setItem('wish', JSON.stringify(state.wish))
+    },
     removeReducer: (state, action) => {
       state.cart = state.cart.filter((item) => item?.id !== action.payload)
       localStorage.setItem('cart', JSON.stringify(state.cart))
@@ -49,10 +54,15 @@ const productSlice = createSlice({
       state.cart = state.cart.map((item) =>item.id === action.payload ? {...item,quan: item.quan > 1 ? item.quan - 1 : 1,}: item);
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
+    subTotalReducer: (state) => {
+      state.cart = 
+      
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
 
   },
 })
 
-export const { productReducer, categoryReducer, cardReducer,cartReducer,removeReducer,incrementReducer,decrementReducer,wishReducer } = productSlice.actions
+export const { productReducer, categoryReducer, cardReducer,cartReducer,removeReducer,incrementReducer,decrementReducer,wishReducer,wishRemoveReducer,subTotalReducer } = productSlice.actions
 
 export default productSlice.reducer

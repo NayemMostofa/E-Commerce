@@ -4,20 +4,7 @@ import { decrementReducer, incrementReducer, removeReducer } from "../Redux/prod
 
 const CardItem = ({ imgSrc, price, brand ,id,quan}) => {
  
-
-
-  //const increaseQty = () => {
-    //setQuantity((prev) => prev + 1);
-  //};
-
- // const decreaseQty = () => {
-   // setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
- // };
-
-
-  //const subtotal = price * quantity;
-
-  const dispatch = useDispatch()
+   const dispatch = useDispatch()
 
   return (
     <div>

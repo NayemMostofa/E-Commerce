@@ -3,14 +3,16 @@ import { IoEyeOutline } from "react-icons/io5";
 import star from '../assets/Five star.png'
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
-import { cartReducer, wishReducer } from '../Redux/productSlice'
- import {  toast,Bounce } from 'react-toastify';
+import { cartReducer,  wishReducer, wishRemoveReducer } from '../Redux/productSlice'
+import {  toast,Bounce } from 'react-toastify';
+import { RiDeleteBin5Fill } from "react-icons/ri";
+
 
 const Card = ({dispercent,
-  image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail}) => {
+  image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail,deletIcon,heartIcon,eyeIcon,}) => {
 
       let navigate = useNavigate();
-
+  
     const handleProductsDtls = ()=>{
       navigate (`/productsDetails/${id}`)
     }
@@ -30,6 +32,16 @@ const handleCart = (id) => {
   }
 };
 
+const handleHeart = (id) => {
+  let matchItem = cardData.filter((item) => item.id === id);
+
+  if (matchItem.length === 0) {
+    dispatch(wishReducer({...productsDetail , quan : 1} ));
+    notify(true); 
+  } else {
+    notify(false); 
+  }
+};
 const notify = (isNew) => {
   isNew
     ? toast("Successfully Added To Cart!", {
@@ -64,10 +76,13 @@ const notify = (isNew) => {
           <img onClick={handleProductsDtls} src={image} alt="" className='object-cover cursor-pointer' />
           <span className='py-1 px-3 bg-primary text-white rounded-sm text-xs absolute top-3 left-3'>-{dispercent}%</span>
           <div className='absolute top-3 right-3 space-y-4'>
-            <div className='w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center'>
-              <CiHeart onClick={()=> dispatch(wishReducer(productsDetail))} className='text-xl cursor-pointer' />
+            <div  onClick={()=> handleHeart(id)} className={`${heartIcon} w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center`} >
+              <CiHeart className='text-xl cursor-pointer' />
             </div>
-            <div className='w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center'>
+            <div className={`${deletIcon || "hidden"} cursor-pointer w-8.5 h-8.5 rounded-full text-xl text-[#161616]`}>
+              <RiDeleteBin5Fill className="cursor-pointer" onClick={() => dispatch(wishRemoveReducer(id))} />
+            </div>
+            <div className={`${eyeIcon} w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center`}>
               <IoEyeOutline className='text-xl' />
             </div>
           </div>
