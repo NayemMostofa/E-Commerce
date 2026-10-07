@@ -19,32 +19,56 @@ const Card = ({dispercent,
 
     const dispatch = useDispatch ()
   
-  const cardData = useSelector((state) => state.AllProducts.cart);
+  const cartItems = useSelector((state) => state.AllProducts?.cart ?? []);
+  const wishItems = useSelector((state) => state.AllProducts?.wish ?? []);
+  const productId = productsDetail?.id ?? id;
+  const isWishlisted = wishItems.some((item) => item.id === productId);
 
-const handleCart = (id) => {
-  let matchItem = cardData.filter((item) => item.id === id);
+  const createProductPayload = (productId) => ({
+    ...(productsDetail ?? {}),
+    id: productsDetail?.id ?? productId,
+    title: productsDetail?.title ?? title,
+    price: productsDetail?.price ?? Number(disprice ?? price ?? 0),
+    thumbnail: productsDetail?.thumbnail ?? image,
+    image: productsDetail?.image ?? image,
+    quan: 1,
+  });
 
-  if (matchItem.length === 0) {
-    dispatch(cartReducer({...productsDetail , quan : 1} ));
-    notify(true); 
+const handleCart = (productId) => {
+  const product = createProductPayload(productId);
+
+  if (!cartItems.some((item) => item.id === productId)) {
+    dispatch(cartReducer(product));
+    notify(true, "Successfully Added To Cart!", "🦄 Already Added!");
   } else {
-    notify(false); 
+    notify(false, "Successfully Added To Cart!", "🦄 Already Added!");
   }
 };
 
-const handleHeart = (id) => {
-  let matchItem = cardData.filter((item) => item.id === id);
+const handleHeart = (productId) => {
+  const product = createProductPayload(productId);
 
-  if (matchItem.length === 0) {
-    dispatch(wishReducer({...productsDetail , quan : 1} ));
-    notify(true); 
+  if (isWishlisted) {
+    dispatch(wishRemoveReducer(productId));
+    toast.info("Removed from Wishlist", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
   } else {
-    notify(false); 
+    dispatch(wishReducer(product));
+    notify(true, "Successfully Added To Wishlist!", "🦄 Already in Wishlist!");
   }
 };
-const notify = (isNew) => {
+const notify = (isNew, successMessage, warningMessage) => {
   isNew
-    ? toast("Successfully Added To Cart!", {
+    ? toast(successMessage, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -55,7 +79,7 @@ const notify = (isNew) => {
         theme: "dark",
         transition: Bounce,
       })
-    : toast.warn("🦄 Already Added!", {
+    : toast.warn(warningMessage, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -76,8 +100,11 @@ const notify = (isNew) => {
           <img onClick={handleProductsDtls} src={image} alt="" className='object-cover cursor-pointer' />
           <span className='py-1 px-3 bg-primary text-white rounded-sm text-xs absolute top-3 left-3'>-{dispercent}%</span>
           <div className='absolute top-3 right-3 space-y-4'>
-            <div  onClick={()=> handleHeart(id)} className={`${heartIcon} w-8.5 h-8.5 bg-white rounded-full flex justify-center items-center`} >
-              <CiHeart className='text-xl cursor-pointer' />
+            <div
+              onClick={() => handleHeart(productId)}
+              className={`${heartIcon} w-8.5 h-8.5 ${isWishlisted ? 'bg-red-100' : 'bg-white'} rounded-full flex justify-center items-center transition-colors duration-200`}
+            >
+              <CiHeart className={`text-xl cursor-pointer transition-colors duration-200 ${isWishlisted ? 'text-red-500 fill-red-500' : 'text-gray-700'}`} />
             </div>
             <div className={`${deletIcon || "hidden"} cursor-pointer w-8.5 h-8.5 rounded-full text-xl text-[#161616]`}>
               <RiDeleteBin5Fill className="cursor-pointer" onClick={() => dispatch(wishRemoveReducer(id))} />
@@ -87,7 +114,7 @@ const notify = (isNew) => {
             </div>
           </div>
          <button onClick={()=> handleCart (id)}
-          className={` ${AddToCardCss} w-full py-2 cursor-pointer bg-black rounded-bl-sm rounded-br-sm rounded-tr-xs rounded-tl-xs  absolute left-0 bottom-0 translate-y-full   duration-500 ease-in group-hover:translate-y-0  text-center text-white `}>Add To Cart</button>
+          className={` ${AddToCardCss} w-full py-2 cursor-pointer bg-black rounded-bl-sm rounded-br-sm rounded-tr-xs rounded-tl-xs  absolute left-0 bottom-0 translate-y-full duration-500 ease-in group-hover:translate-y-0 text-center text-white `}>Add To Cart</button>
         </div>                        
       </div> 
       <h3 className='font-medium'>{title}</h3>  

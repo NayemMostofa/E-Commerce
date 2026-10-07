@@ -3,10 +3,12 @@ import Container from '../Common/Container'
 import BreadCrumb from '../Common/BreadCrumb'
 import CardItem from '../Common/CardItem'
 import Btn from "../Common/Btn";
+import { useNavigate } from "react-router";
 
 const CartPages = () => { 
 
   const cardItems = useSelector((state) => state.AllProducts.cart);
+  const navigate = useNavigate();
 
   return (
     <div className="pb-52">
@@ -27,13 +29,13 @@ const CartPages = () => {
               key={item.id}
               imgSrc={item.thumbnail}
               price={item.price}
-              brand={item.brand}
+              brand={item.brand ?? item.title}
               quan={item.quan}
             />
           ))}
 
           <div className="flex justify-between items-center mt-6">
-            <Btn >Return To Shop</Btn>
+            <Btn onClick={() => navigate("/shop")}>Return To Shop</Btn>
             <Btn>Update Cart</Btn>
           </div>
 

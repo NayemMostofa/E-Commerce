@@ -13,13 +13,16 @@ console.log(wishItems)
         <Container>
             <BreadCrumb className="mt-10" />
             <div className='flex justify-between items-center my-20'>
-                <h2 className='text-xl '>Wishlist ({wishItems.lengt})</h2>
+                <h2 className='text-xl '>Wishlist ({wishItems.length})</h2>
                 <Btn>Move All To Bag</Btn>
             </div>
             <div className='grid gap-7.5 grid-cols-4 items-center'>
                 {
                   wishItems.map((item)=>{
                     return <Card
+                  key={item.id}
+                  id={item.id}
+                  productsDetail={item}
                   image={item.thumbnail}
                   dispercent="40"
                   title={item.title}
