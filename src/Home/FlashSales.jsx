@@ -15,19 +15,17 @@ import "slick-carousel/slick/slick-theme.css";
 
 const SliderComponent = Slider.default ?? Slider;
 
-function SampleNextArrow({ onClick, className, style }) {
+function SampleNextArrow({ onClick }) {
   return (
-    <button type="button" onClick={onClick} className="hidden cursor-pointer absolute -top-21.5 right-0 z-10 w-11 h-11 bg-[#F5F5F5] rounded-full lg:flex justify-center items-center  " >
-    
+    <button type="button" aria-label="Next products" onClick={onClick} className="hidden cursor-pointer absolute -top-21.5 right-0 z-10 w-11 h-11 bg-[#F5F5F5] rounded-full lg:flex justify-center items-center">
       <FaArrowRight size={18} color="#000000" />
     </button>
   );
 }
 
-function SamplePrevArrow({ onClick, className, style }) {
+function SamplePrevArrow({ onClick }) {
   return (
-    <button type="button" onClick={onClick} className="hidden  cursor-pointer z-10 absolute -top-21.5 right-13  w-11 h-11 bg-[#F5F5F5] rounded-full lg:flex justify-center items-center  "
-    >
+    <button type="button" aria-label="Previous products" onClick={onClick} className="hidden cursor-pointer z-10 absolute -top-21.5 right-13 w-11 h-11 bg-[#F5F5F5] rounded-full lg:flex justify-center items-center">
       <FaArrowLeftLong size={18} color="#000000" />
     </button>
   );
@@ -38,26 +36,23 @@ const FlashSales = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     rows: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1100,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false
+          slidesToScroll: 1
         }
       },
       {
-        breakpoint: 760,
+        breakpoint: 740,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
+          slidesToScroll: 1
         }
       },
       {
@@ -82,6 +77,9 @@ const FlashSales = () => {
         <div className="my-10 w-full min-w-0">
           <SliderComponent className="w-full min-w-0" {...settings}>
             <Card
+              id="flash-gamepad"
+              productsDetail={{ id: "flash-gamepad", title: "HAVIT HV-G92 Gamepad", price: 140, thumbnail: img }}
+              className="w-full max-w-67.5"
               image={img}
               dispercent="40"
               title="HAVIT HV-G92 Gamepad"
@@ -91,6 +89,9 @@ const FlashSales = () => {
               review="88"
             />
             <Card
+              id="flash-keyboard"
+              productsDetail={{ id: "flash-keyboard", title: "AK-900 Wired Keyboard", price: 960, thumbnail: img1 }}
+              className="w-full max-w-67.5"
               image={img1}
               dispercent="39"
               title="AK-900 Wired Keyboard"
@@ -100,6 +101,9 @@ const FlashSales = () => {
               review="75"
             />
             <Card
+              id="flash-monitor"
+              productsDetail={{ id: "flash-monitor", title: "IPS LCD Gaming Monitor", price: 370, thumbnail: img2 }}
+              className="w-full max-w-67.5"
               image={img2}
               dispercent="30"
               title="IPS LCD Gaming Monitor"
@@ -109,6 +113,9 @@ const FlashSales = () => {
               review="99"
             />
             <Card
+              id="flash-chair"
+              productsDetail={{ id: "flash-chair", title: "S-Series Comfort Chair", price: 375, thumbnail: img3 }}
+              className="w-full max-w-67.5"
               image={img3}
               dispercent="25"
               title="S-Series Comfort Chair"
@@ -118,6 +125,9 @@ const FlashSales = () => {
               review="99"
             />
             <Card
+              id="flash-gamepad"
+              productsDetail={{ id: "flash-gamepad", title: "HAVIT HV-G92 Gamepad", price: 140, thumbnail: img }}
+              className="w-full max-w-67.5"
               image={img}
               dispercent="40"
               title="HAVIT HV-G92 Gamepad"
@@ -127,6 +137,9 @@ const FlashSales = () => {
               review="88"
             />
             <Card
+              id="flash-keyboard"
+              productsDetail={{ id: "flash-keyboard", title: "AK-900 Wired Keyboard", price: 960, thumbnail: img1 }}
+              className="w-full max-w-67.5"
               image={img1}
               dispercent="39"
               title="AK-900 Wired Keyboard"
@@ -136,6 +149,9 @@ const FlashSales = () => {
               review="75"
             />
             <Card
+              id="flash-monitor"
+              productsDetail={{ id: "flash-monitor", title: "IPS LCD Gaming Monitor", price: 370, thumbnail: img2 }}
+              className="w-full max-w-67.5"
               image={img2}
               dispercent="30"
               title="IPS LCD Gaming Monitor"
@@ -145,6 +161,9 @@ const FlashSales = () => {
               review="99"
             />
             <Card
+              id="flash-chair"
+              productsDetail={{ id: "flash-chair", title: "S-Series Comfort Chair", price: 375, thumbnail: img3 }}
+              className="w-full max-w-67.5"
               image={img3}
               dispercent="25"
               title="S-Series Comfort Chair"

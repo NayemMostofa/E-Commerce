@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Card from '../Common/Card';
 import { useSelector } from 'react-redux';
 
 const PaginateComponent = ReactPaginate.default || ReactPaginate;
 
-const Paginate = ({ itemsPerPage }) => {
-  const items = useSelector((state) => state.AllProducts?.products ?? []);
-
-  function Items({ currentItems }) {
+function Items({ currentItems }) {
   return (
-    <>
+    <div className="grid w-full grid-cols-1 justify-items-center gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
       {currentItems &&
         currentItems.map((item) => (
           <Card
@@ -27,12 +24,12 @@ const Paginate = ({ itemsPerPage }) => {
           />
 
         ))}
-    </>
+    </div>
   );
 }
 
-// Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+const Paginate = ({ itemsPerPage }) => {
+  const items = useSelector((state) => state.AllProducts?.products ?? []);
   const [itemOffset, setItemOffset] = useState(0);
 
   // Simulate fetching items from another resources.
@@ -52,7 +49,7 @@ const Paginate = ({ itemsPerPage }) => {
   };
 
   return (
-    <>
+    <div className="w-full">
       <Items currentItems={currentItems} />
       <PaginateComponent
         breakLabel="..."
@@ -62,10 +59,10 @@ const Paginate = ({ itemsPerPage }) => {
         pageCount={pageCount}
         previousLabel=""
         renderOnZeroPageCount={null}
-         className="flex gap-4"
+         className="mt-8 flex flex-wrap justify-center gap-4"
          pageLinkClassName="px-6.25 py-[2px] bg-black text-white cursor-pointer"
       />
-    </>
+    </div>
   )
 }
 

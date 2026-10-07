@@ -9,6 +9,9 @@ const CartPages = () => {
 
   const cardItems = useSelector((state) => state.AllProducts.cart);
   const navigate = useNavigate();
+  const subtotal = cardItems
+    .filter((item) => item && item.id != null)
+    .reduce((total, item) => total + Number(item.price) * Number(item.quan), 0);
 
   return (
     <div className="pb-52">
@@ -52,18 +55,18 @@ const CartPages = () => {
               <h3>Cart Total</h3>
               <div className="flex justify-between items-center border-b py-4">
                 <h3>Subtotal</h3>
-                <h3>$</h3>
+                <h3>${subtotal.toFixed(2)}</h3>
               </div>
               <div className="flex justify-between items-center border-b py-4">
                 <h3>Shipping</h3>
-                <h3>$</h3>
+                <h3>Free</h3>
               </div>
               <div className="flex justify-between items-center  py-4">
                 <h3>Total:</h3>
-                <h3>$</h3>
+                <h3>${subtotal.toFixed(2)}</h3>
               </div>
               <Btn className="mx-auto block">
-                Procees to checkout
+                Proceed to checkout
               </Btn>
 
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import Container from '../Common/Container'
 import BreadCrumb from '../Common/BreadCrumb'
 import Btn from '../Common/Btn'
@@ -16,7 +15,7 @@ console.log(wishItems)
                 <h2 className='text-xl '>Wishlist ({wishItems.length})</h2>
                 <Btn>Move All To Bag</Btn>
             </div>
-            <div className='grid gap-7.5 grid-cols-4 items-center'>
+            <div className='grid grid-cols-1 justify-items-center gap-7.5 sm:grid-cols-2 xl:grid-cols-4'>
                 {
                   wishItems.map((item)=>{
                     return <Card

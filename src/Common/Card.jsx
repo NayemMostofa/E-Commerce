@@ -9,7 +9,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 
 
 const Card = ({dispercent,
-  image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail,deletIcon,heartIcon,eyeIcon,}) => {
+  image,AddToCardCss,title,disprice,price,rating,review,id,productsDetail,deletIcon,heartIcon,eyeIcon,className = "w-67.5",}) => {
 
       let navigate = useNavigate();
   
@@ -94,7 +94,7 @@ const notify = (isNew, successMessage, warningMessage) => {
 
 
   return (
-    <div className=" w-67.5  group h-87.5 ">
+    <div className={`${className} group h-87.5`}>
       <div className=" relative  ">
         <div className=" h-62.5 relative overflow-hidden pt-8 pl-10 ">
           <img onClick={handleProductsDtls} src={image} alt="" className='object-cover cursor-pointer' />
@@ -113,7 +113,7 @@ const notify = (isNew, successMessage, warningMessage) => {
               <IoEyeOutline className='text-xl' />
             </div>
           </div>
-         <button onClick={()=> handleCart (id)}
+         <button onClick={()=> handleCart(productId)}
           className={` ${AddToCardCss} w-full py-2 cursor-pointer bg-black rounded-bl-sm rounded-br-sm rounded-tr-xs rounded-tl-xs  absolute left-0 bottom-0 translate-y-full duration-500 ease-in group-hover:translate-y-0 text-center text-white `}>Add To Cart</button>
         </div>                        
       </div> 
