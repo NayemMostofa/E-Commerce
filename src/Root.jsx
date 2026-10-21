@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { Outlet } from 'react-router'
+import { Outlet, useLocation } from 'react-router'
 import Header from './Common/Header';
 import Navber from './Common/Navber';
 import Footer from './Home/Footer';
@@ -8,12 +6,15 @@ import Footer from './Home/Footer';
 
 
 const Root = () => {
+  const { pathname } = useLocation()
+  const isAuthPage = pathname === '/signup' || pathname === '/login'
+
   return (
     <div>
-      <Header />
+      {!isAuthPage && <Header />}
       <Navber />
       <Outlet />
-      <Footer />
+      {!isAuthPage && <Footer />}
  
     </div>
   );

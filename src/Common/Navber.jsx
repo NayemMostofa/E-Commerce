@@ -3,6 +3,7 @@ import logo from '../assets/Exclusive.png'
 import { IoIosSearch } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { FiUser } from "react-icons/fi";
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router';
@@ -29,9 +30,21 @@ const Navber = () => {
                   Home
                 </NavLink>
               </li>
-              <li className="cursor-pointer hover:text-red-500">Contact</li>
-              <li className="cursor-pointer hover:text-red-500">About</li>
-              <li className="cursor-pointer hover:text-red-500">Sign Up</li>
+              <li className="cursor-pointer hover:text-red-500">
+                <NavLink to="/contact" onClick={() => setShow(false)}>
+                  Contact
+                </NavLink>
+              </li>
+              <li className="cursor-pointer hover:text-red-500">
+                <NavLink to="/about" onClick={() => setShow(false)}>
+                  About
+                </NavLink>
+              </li>
+              <li className="cursor-pointer hover:text-red-500">
+                <NavLink to="/signup" onClick={() => setShow(false)}>
+                  Sign Up
+                </NavLink>
+              </li>
             </ul>
 
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-6">
@@ -73,6 +86,14 @@ const Navber = () => {
                     {cart.length}
                   </span>
                 </button>
+                <NavLink
+                  to="/myaccount"
+                  onClick={() => setShow(false)}
+                  aria-label="My Account"
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white transition-colors hover:bg-red-600"
+                >
+                  <FiUser className="text-base" aria-hidden="true" />
+                </NavLink>
               </div>
             </div>
           </div>
